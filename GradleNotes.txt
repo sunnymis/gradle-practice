@@ -1,0 +1,46 @@
+Gradle is a build system for Java Applications. 
+gradle tasks - Lists all available tasks you can run
+gradle build - Compiles, tests, and assembles code into a JAR file. Result will
+be in the /build folder. 
+/build folder: 
+    /classes - Projects compiled .class files
+    /reports - Reports produced by the build, i.e unit test reports
+    /libs - Assembled libraries, JAR/WAR files
+    /dependency_cache - Library dependncies
+
+build.gradle
+-  repositories { mavenCentral() } - The repositories block is where you can add
+a source for getting 3rd party libraries. Here we are indicating that the dependencies
+should come frmo the Maven Central repository. 
+- dependencies {
+    compile "joda-time:joda-time:2.2"
+} 
+The dependencies block is wehre you delcare dependencies, i.e Joda Time. 
+Version 2.2 of Joda Time library of the Joda Time group. Gradle will download
+the jar dependency from https://repo1.maven.org/maven2/joda-time/joda-time/2.2/joda-time-2.2.jar
+It is a compile dependency which means that it should be available during compile-time
+providedCompile - Type of dependency that is required for compiling the code, but
+will be provided at runtime by a container
+testCompile - Type of dependency used for compiling and running tests, not 
+required for building or running project's runtime code. 
+- jar {
+    baseName = 'gs-gradle'
+    version = '0.1.0'
+}
+The jar block specifies how the JAR file will be named. This will result in
+gs-gradle-0.1.0.jar
+
+Gradle Wrapper - Preferred way of starting a gradle build. It allows you to run
+Gradle builds without having it be installed on your system. 
+Creates gradlew, gradlew.bat, gradle/wrapper/gradle-wrapper.jar
+If you add Gradle wrapper to your version control, people who clone your repo
+can build the project the same way as you, without having gradle installed. Also,
+they will have the same version of gradle you were using. 
+They just have to run: ./gradlew build. 
+
+Making your application runnable, add this to build.gradle
+apply plugin: 'application'
+mainClassName = 'hello.HelloWorld'
+
+Running the App: 
+./gradlew run
